@@ -1,0 +1,10 @@
+// Format: returnType functionName();
+void lift_thread_func();
+void exampleAuton();
+void exampleAuton2();
+void redGoalRush();
+void asyncExample();
+void pathExample();
+void profiledExample();
+extern thread lift_thread;
+void leftSide();
