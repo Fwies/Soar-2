@@ -8,3 +8,4 @@ void pathExample();
 void profiledExample();
 extern thread lift_thread;
 void leftSide();
+void skills();

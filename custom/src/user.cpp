@@ -12,7 +12,7 @@ void runAutonomous() {
   stopChassis(hold);
   // Runs the routine picked on the Brain screen (or with the controller arrows while disabled).
   // Add routines to the list in runPreAutonomous() below.
-  leftSide();
+  skills();//leftSide();
   //exampleAuton();
   //runSelectedAuton();
 }

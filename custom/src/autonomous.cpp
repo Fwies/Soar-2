@@ -29,31 +29,23 @@ void lift_thread_func(){
 }
 thread lift_thread = thread(lift_thread_func);
 
-
-
-void leftSide(){
-//lift.spin(reverse, 10, volt);
-
-  /*lift.setPosition(0,rev);
-  setPose(11,-63,360-125);
-  clamp_piston.set(true);
-  lift.spinToPosition(1.5,rev,600,rpm,false);
-  roller.setPosition(0,rev);
-  roller.spinTo(10,rev,600,rpm,true);
-  correct_angle = -125;
-  driveTo(-12.5,2000);
-  lift.spinToPosition(0.9,rev,600,rpm,true);
-  clamp_piston.set(false);
-  wait(0.2, sec);
+void skills(){
   
-  driveTo(8.5,3000);
-  lift.spin(reverse, 10,volt);*/
 
-  runAsync([]{ driveTo(-1,2000); });
+runAsync([]{ driveTo(-0.75,2000); });
 
   lift.setPosition(0,rev);
   lift.spin(forward,2,volt);
   setPose(8,-62,180);
+
+  if(resetPositionRight()){
+    controller_1.Screen.print("f");
+  }
+  if(resetPositionFront()){
+    controller_1.Screen.print("b");
+   
+  }
+  
   
  
   
@@ -74,7 +66,7 @@ void leftSide(){
   clamp_piston.set(true);
   wait(0.2,sec);
   moveToPoint(8,-51,1,3000,true,5);
-  lift.spin(reverse, 10,volt);
+  lift.spinToPosition(0,rev,600,rpm,false);
   
   wait(0.2,sec);
   turnToAngle(180,1000,true);
@@ -94,7 +86,7 @@ void leftSide(){
   cancelMotion();
   runAsync([]{ moveToPoint(22,-22,-1,3000, true,1.5); });
   while(clamp_optical.objectDistance(inches)>2.25){
-    wait(2, msec);
+    wait(10, msec);
   }
   clamp_piston.set(false);
   lift.spinToPosition(3.4, rev, 600, rpm,false);
@@ -103,12 +95,14 @@ void leftSide(){
 
   
   moveToPoint(23,-42,-1,3000,true);
-  lift.spin(reverse,10,volt);
-  wait(0.1,sec);
+  wait(0.2,sec);
+  lift.spinToPosition(0.4,rev,600,rpm,false);
+  wait(0.3,sec);
   clamp_piston.set(true);
   wait(0.2, sec);
   
   swing(90,1,1000);
+  lift.spin(reverse,10,volt);
   if(resetPositionRight()){
     controller_1.Screen.print("f");
   }
@@ -123,15 +117,180 @@ void leftSide(){
   cancelMotion();
   runAsync([]{  moveToPoint(44,-47,-1,3000,true,1.5);});
   while(clamp_optical.objectDistance(inches)>2.25){
-    wait(2, msec);
+    wait(10, msec);
   }
   clamp_piston.set(false);
   lift.spinToPosition(4.5, rev, 600, rpm,false);
   cancelMotion();
-  turnToPoint(26,-47,-1,3000);
-  moveToPoint(26,-47,-1,3000);
+  turnToPoint(25,-47,-1,3000);
+  moveToPoint(25,-47,-1,3000);
+  wait(0.4,sec);
+  
+  
+  lift.spinToPosition(0,rev,600,rpm,false);
+
+  wait(0.3,sec);
   clamp_piston.set(true);
+
+
+
+  //unique auto start 
+  wait(0.2,sec);
+  moveToPoint(28,-47,1,3000);
+  if(resetPositionRight()){
+    controller_1.Screen.print("f");
+  }
+  if(resetPositionFront()){
+    controller_1.Screen.print("b");
+   
+  }
+  moveToPoint(60,-47,1,2000,true,5);
+  turnToPoint(60,-67.5,-1,2000);
+  resetPositionLeft();
+
+  runAsync([]{ moveToPoint(60,-66,-1,1500,true,3);});
+  while(clamp_optical.objectDistance(inches)>2.25){
+    wait(10, msec);
+  }
+  clamp_piston.set(false);
+  lift.spinToPosition(0.3,rev,600,rpm,false);
+  moveToPoint(44,-50,1,2000,true,3);
+  turnToAngle(90,2000);
+  if(resetPositionRight()){
+    controller_1.Screen.print("f");
+  }
+  if(resetPositionFront()){
+    controller_1.Screen.print("b");
+   
+  }
+  lift.spinToPosition(5.2,rev,600,rpm,false);
+  wait(0.3,sec);
+  turnToPoint(25,-47,-1,2000);
+  moveToPoint(25,-47,-1,3000,true,4);
+  wait(0.3,sec);
+
+  lift.spinToPosition(0,rev,600,rpm,false);
+  wait(0.4, sec);
+
+
+  
+
+}
+
+void leftSide(){
+//lift.spin(reverse, 10, volt);
+
+  /*lift.setPosition(0,rev);
+  setPose(11,-63,360-125);
+  clamp_piston.set(true);
+  lift.spinToPosition(1.5,rev,600,rpm,false);
+  roller.setPosition(0,rev);
+  roller.spinTo(10,rev,600,rpm,true);
+  correct_angle = -125;
+  driveTo(-12.5,2000);
+  lift.spinToPosition(0.9,rev,600,rpm,true);
+  clamp_piston.set(false);
+  wait(0.2, sec);
+  
+  driveTo(8.5,3000);
+  lift.spin(reverse, 10,volt);*/
+
+  runAsync([]{ driveTo(-0.75,2000); });
+
+  lift.setPosition(0,rev);
+  lift.spin(forward,2,volt);
+  setPose(8,-62,180);
+
+  if(resetPositionRight()){
+    controller_1.Screen.print("f");
+  }
+  if(resetPositionFront()){
+    controller_1.Screen.print("b");
+   
+  }
+  
+  
+ 
+  
+
+  
+  roller.setPosition(0,rev);
+  roller.spinTo(8,rev,600,rpm,true);
+  correct_angle = 180;
+  moveToPoint(8,-52,-1,2000,true,5.5);
+  lift.spinToPosition(1.8,rev,600,rpm,false);
+  turnToAngle(270,3000);
+  correct_angle = 270;
+  runAsync([]{ driveTo(-20,2000,true,3);});
+  wait(1,sec);
+  lift.spinToPosition(0.8,rev,600,rpm,false);
+  
+  wait(0.4, sec);
+  clamp_piston.set(true);
+  wait(0.2,sec);
+  moveToPoint(8,-51,1,3000,true,5);
+  lift.spinToPosition(0,rev,600,rpm,false);
+  
+  wait(0.2,sec);
+  turnToAngle(180,1000,true);
+  //turnToPoint(12,-36,-1,3000);
+  
+  if(resetPositionLeft()){
+    controller_1.Screen.print("f");
+  }
+  if(resetPositionFront()){
+    controller_1.Screen.print("b");
+   
+  }
+  
+  turnToPoint(22,-22,-1,3000);
+  runAsync([]{ moveToPoint(22,-22,-1,3000, true,12); });
+  waitUntilNear(22,-22,14);
+  cancelMotion();
+  runAsync([]{ moveToPoint(22,-22,-1,3000, true,1.5); });
+  while(clamp_optical.objectDistance(inches)>2.25){
+    wait(10, msec);
+  }
+  clamp_piston.set(false);
+  lift.spinToPosition(3.4, rev, 600, rpm,false);
+  waitForMotion();
+  turnToPoint(23,-42,-1,3000);
+
+  
+  moveToPoint(23,-42,-1,3000,true);
+  lift.spinToPosition(0.4,rev,600,rpm,false);
+  wait(0.1,sec);
+  clamp_piston.set(true);
+  wait(0.2, sec);
+  
+  swing(90,1,1000);
   lift.spin(reverse,10,volt);
+  if(resetPositionRight()){
+    controller_1.Screen.print("f");
+  }
+  if(resetPositionFront()){
+    controller_1.Screen.print("b");
+   
+  }
+  
+  turnToPoint(44,-47,-1,2000);
+  runAsync([]{  moveToPoint(44,-47,-1,3000,true);});
+  waitUntilNear(44,-47,14);
+  cancelMotion();
+  runAsync([]{  moveToPoint(44,-47,-1,3000,true,1.5);});
+  while(clamp_optical.objectDistance(inches)>2.25){
+    wait(10, msec);
+  }
+  clamp_piston.set(false);
+  lift.spinToPosition(4.5, rev, 600, rpm,false);
+  cancelMotion();
+  turnToPoint(25,-47,-1,3000);
+  moveToPoint(25,-47,-1,3000);
+  wait(0.2,sec);
+  clamp_piston.set(true);
+  
+  lift.spinToPosition(0,rev,600,rpm,false);
+  
 
   
   
