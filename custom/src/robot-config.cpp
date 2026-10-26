@@ -20,12 +20,12 @@ controller controller_1 = controller(primary);
 // Drive encoder readings come from the FIRST motor in each motor_group, so with mixed motors
 // list an 11W motor first and set wheel_distance_in for that motor's gearing.
 
-motor left_chassis1 = motor(PORT19, ratio6_1, true);
-motor left_chassis2 = motor(PORT20, ratio6_1, true);
+motor right_chassis1 = motor(PORT19, ratio6_1, true);
+motor right_chassis2 = motor(PORT20, ratio6_1, true);
 
 motor_group left_chassis = motor_group(left_chassis1, left_chassis2);
-motor right_chassis1 = motor(PORT12, ratio6_1, false);
-motor right_chassis2 = motor(PORT13, ratio6_1, false);
+motor left_chassis1 = motor(PORT12, ratio6_1, false);
+motor left_chassis2 = motor(PORT13, ratio6_1, false);
 
 motor_group right_chassis = motor_group(right_chassis1, right_chassis2);
 
@@ -41,8 +41,10 @@ motor roller = motor(PORT11, ratio6_1, false);
 
 inertial inertial_sensor = inertial(PORT8);
 distance clamp_optical = distance(PORT4);
+optical roller_optical = optical(PORT3);
 digital_out clamp_piston = digital_out(Brain.ThreeWirePort.A);
 bumper lift_bumper = bumper(Brain.ThreeWirePort.H);
+bumper lift_bumper2 = bumper(Brain.ThreeWirePort.D);
 
 // Format is rotation(port, reversed)
 // just set these to random ports if you don't use tracking wheels

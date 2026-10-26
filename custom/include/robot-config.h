@@ -15,12 +15,15 @@ extern motor right_chassis2;
 
 extern double d_test;
 
+
 extern motor_group right_chassis;
 extern inertial inertial_sensor;
 extern distance clamp_optical;
 extern bumper lift_bumper;
+extern bumper lift_bumper2;
 extern motor_group lift;
 extern motor roller;
+extern optical roller_optical;
 
 extern digital_out clamp_piston;
 extern rotation horizontal_tracker;

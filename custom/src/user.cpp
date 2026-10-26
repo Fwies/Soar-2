@@ -12,7 +12,8 @@ void runAutonomous() {
   stopChassis(hold);
   // Runs the routine picked on the Brain screen (or with the controller arrows while disabled).
   // Add routines to the list in runPreAutonomous() below.
-  skills();//leftSide();
+  //skills();
+ leftSide();
   //exampleAuton();
   //runSelectedAuton();
 }
@@ -26,12 +27,12 @@ int chassis_flag = 0;
 bool clamp_lift = false;
 
 
-
+bool vince = true;
 
 void runDriver() {
   
   lift_thread.interrupt();
-  
+  //lift.setPosition(7,rev);
   stopChassis(coast);
   heading_correction = false;
   while (true) {
@@ -58,9 +59,13 @@ void runDriver() {
 
 
     // driver lift up and down
-    if(lift_bumper.pressing()){
+    if(lift.position(rev)<-0.3){
+      lift.stop();
+    }
+    if(lift_bumper.pressing()||lift_bumper2.pressing()){
       lift.setPosition(0,rev);
     }
+    
     if(clamp_lift_delay>15){
       clamp_lift=false;
       clamp_lift_delay=0;
@@ -74,15 +79,20 @@ void runDriver() {
     
     //Brain.Screen.print("%d y: %d",x_pos, y_pos);
     
-    if(l1 && clamp_optical.objectDistance(inches)<2){
+    if(((l1&&!vince)||(l2&&vince)) && clamp_optical.objectDistance(inches)<2){
       clamp_piston.set(false);
-      lift.spinToPosition(3,rev,2,rpm,false);
+      //lift.spinToPosition(3,rev,2,rpm,false);
       clamp_lift=true;
+    }
+    else if((button_right_arrow && !vince)||(vince && l1)){
+      clamp_piston.set(false);
+
+      //clamp_lift=true;
     }
     else if(r1){
       lift.spin(forward, 12, volt);
     }
-    else if(r2&&!lift_bumper.pressing()){
+    else if(r2&&!lift_bumper.pressing()&&!lift_bumper2.pressing()){
       lift.spin(reverse, 10, volt);
     }
     else if (lift.isDone()){
@@ -91,21 +101,33 @@ void runDriver() {
     }
 
     
-    if (l2){
+    if ((l2&&!vince)||(vince&&button_y)){
       lift.spinToPosition(0,rev,450,rpm,false);
       clamp_piston.set(true);
     }
 
-
-    if(button_y){
+    if(button_right_arrow){
+      vince=!vince;
+    }
+    //if(button_y && !(roller_optical.hue()<250 && roller_optical.hue()>195)){ // blue
+    if(((button_y&&!vince)||(button_right_arrow&&vince)) && (!(roller_optical.hue()<15 || roller_optical.hue()>345))){ // red
       roller.spin(forward, 12, volt);
+    }
+    else if(button_b){
+      roller.spin(forward, 9, volt);
     }
     else{
       roller.stop(brake);
     }
 
     // default tank drive or replace it with your preferred driver code here:
-    driverTank(ch3, ch2);
+    
+    if(vince){
+    driverArcade(ch3, ch1);
+    }
+    else{
+      driveChassis(ch3,ch2);
+    }
 
 
     // Arcade on the left stick:           driverArcade(ch3, ch4);
@@ -117,6 +139,8 @@ void runDriver() {
 }
 
 void runPreAutonomous() {
+  roller_optical.setLightPower(100, percent);
+  
   //clamp_piston.set(true);
   lift.setStopping(hold);
     // Initializing Robot Configuration. DO NOT REMOVE!
